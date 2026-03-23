@@ -346,20 +346,7 @@
           <div class="stat-item"><span class="stat-num">3</span><span class="stat-lbl">Static Albums</span></div>
         </div>
 
-        <!-- Storage usage -->
-        <div class="admin-card" id="storageCard">
-          <div class="admin-card-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-            Storage Usage
-          </div>
-          <div class="storage-bar-wrap">
-            <div class="storage-bar-label">
-              <span id="storageLbl">Calculating…</span>
-              <span id="storagePct">0%</span>
-            </div>
-            <div class="storage-bar"><div class="storage-bar-fill" id="storageFill" style="width:0%"></div></div>
-          </div>
-        </div>
+        <!-- Storage usage card removed: Now using limitless Supabase Storage Buckets -->
 
         <!-- Create album form -->
         <div class="admin-card">
@@ -530,17 +517,8 @@
     }
 
     // ── Storage meter ──
-    async function updateStorage() {
-      const used = new Blob([JSON.stringify(await getAlbums() || [])]).size;
-      const max  = 5 * 1024 * 1024; // 5MB approx
-      const pct  = Math.min(Math.round(used / max * 100), 100);
-      const usedMB = (used / (1024*1024)).toFixed(2);
-      document.getElementById('storageLbl').textContent  = `${usedMB} MB used of ~5 MB`;
-      document.getElementById('storagePct').textContent  = pct + '%';
-      const fill = document.getElementById('storageFill');
-      fill.style.width = pct + '%';
-      fill.classList.toggle('warn', pct >= 80);
-    }
+    // Replaced by unlimited Supabase Cloud Storage. We leave a stub so other calls don't crash.
+    async function updateStorage() {}
 
     // ── Create album ──
     async function createAlbum() {
@@ -565,6 +543,15 @@
     // ── Delete album ──
     async function deleteAlbum(id) {
       if (!window.supabaseClient) return;
+      
+      // Delete all photos belonging to this album first
+      const albs = await getAlbums();
+      const alb = albs.find(a => a.id === id);
+      if (alb && alb.photos && alb.photos.length > 0) {
+        const fileNames = alb.photos.map(p => p.id);
+        await window.supabaseClient.storage.from('gallery').remove(fileNames);
+      }
+      
       await window.supabaseClient.from('gallery_albums').delete().match({ id });
       loadAlbumList();
       updateStorage();
@@ -575,6 +562,10 @@
       const albs = await getAlbums();
       const alb = albs.find(a => a.id === albId);
       if (!alb || !window.supabaseClient) return;
+      
+      // Delete image file from Storage
+      await window.supabaseClient.storage.from('gallery').remove([photoId]);
+      
       const newPhotos = alb.photos.filter(p => p.id !== photoId);
       await window.supabaseClient.from('gallery_albums').update({ photos: newPhotos }).match({ id: albId });
       loadAlbumList();
@@ -593,9 +584,25 @@
       if (!alb || !window.supabaseClient) return;
 
       for (const file of files) {
-        const compressed = await compressImage(file, 1200, 0.75);
-        alb.photos.push({ id:'ph-'+Date.now()+'-'+Math.random().toString(36).slice(2), src: compressed, name: file.name });
+        if (uploadBtn) uploadBtn.textContent = `Uploading ${file.name} to Cloud…`;
+        const compressedBase64 = await compressImage(file, 1200, 0.75);
+        
+        // Convert the compressed base64 back into a standard Blob file for Supabase storage uploading
+        const fetchRes = await fetch(compressedBase64);
+        const blob = await fetchRes.blob();
+        const fileName = 'ph-' + Date.now() + '-' + Math.random().toString(36).slice(2) + '.jpg';
+        
+        const { error } = await window.supabaseClient.storage.from('gallery').upload(fileName, blob, { contentType: 'image/jpeg' });
+        
+        if (!error) {
+          const { data: pubData } = window.supabaseClient.storage.from('gallery').getPublicUrl(fileName);
+          alb.photos.push({ id: fileName, src: pubData.publicUrl, name: file.name });
+        } else {
+          console.error("Failed to upload image to bucket", error);
+        }
       }
+      
+      if (uploadBtn) uploadBtn.textContent = 'Saving album metadata…';
       await window.supabaseClient.from('gallery_albums').update({ photos: alb.photos }).match({ id: albId });
       input.value = '';
       loadAlbumList();

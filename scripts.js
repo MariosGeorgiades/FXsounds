@@ -3,6 +3,24 @@
    Optimized for 60fps + real-world perf
 ═══════════════════════════════════ */
 
+// ── SMOOTH SCROLLING (Lenis) ──
+let lenis;
+if (typeof window.Lenis !== 'undefined') {
+  lenis = new window.Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+}
+
 // ── Utility: debounce & throttle ──
 function debounce(fn, ms) {
   let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };

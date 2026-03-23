@@ -169,7 +169,7 @@ nav {
 }
 
 .hamburger {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 5px;
   background: none;
@@ -1389,10 +1389,8 @@ footer {
   .nav-book {
     display: none;
   }
-
-  .hamburger {
-    display: flex;
-  }
+  
+  /* Hamburger is natively flex now */
 
   #services,
   #gallery,

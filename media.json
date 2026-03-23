@@ -1,0 +1,23 @@
+[
+  {
+    "id": "festival",
+    "title": "Summer Music Festival",
+    "date": "Aug 2025",
+    "cover": "photo1.jpg",
+    "photos": ["photo1.jpg", "photo2.jpg"]
+  },
+  {
+    "id": "wedding",
+    "title": "Luxury Wedding Setup",
+    "date": "Sep 2025",
+    "cover": "photo3.jpg",
+    "photos": ["photo3.jpg", "photo4.jpg"]
+  },
+  {
+    "id": "corporate",
+    "title": "Corporate Tech Gala",
+    "date": "Oct 2025",
+    "cover": "photo5.jpg",
+    "photos": ["photo5.jpg", "photo6.jpg"]
+  }
+]

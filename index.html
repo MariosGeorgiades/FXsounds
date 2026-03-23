@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ── SEO ── -->
+  <title>FX Sound Productions | Sound, Lighting &amp; AV Cyprus</title>
+  <meta name="description" content="Cyprus's leading AV production company. Professional sound, lighting, staging and AV for weddings, concerts and corporate events island-wide. Call us today.">
+  <link rel="canonical" href="https://fxsoundproductions.com/">
+
+  <!-- ── Open Graph (WhatsApp / Facebook) ── -->
+  <meta property="og:title" content="FX Sound Productions | Sound, Lighting &amp; AV Cyprus">
+  <meta property="og:description" content="Cyprus's leading AV production company. Professional sound, lighting, staging and AV for weddings, concerts and corporate events island-wide.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fxsoundproductions.com/">
+  <meta property="og:image" content="https://fxsoundproductions.com/images/logo-transparent.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="FX Sound Productions">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FX Sound Productions | Sound, Lighting &amp; AV Cyprus">
+  <meta name="twitter:description" content="Cyprus's leading AV production company. Professional sound, lighting, staging and AV for weddings, concerts and corporate events island-wide.">
+  <meta name="twitter:image" content="https://fxsoundproductions.com/images/logo-transparent.png">
+
+  <!-- ── Security headers ── -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
+
+  <!-- ── Resource hints ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" href="images/logo-transparent.png" as="image" fetchpriority="high">
+
+  <!-- ── Web Fonts (non-render-blocking) ── -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet"></noscript>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- ── LocalBusiness JSON-LD Schema ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "FX Sound Productions Ltd",
+    "description": "Professional sound, lighting, staging and AV production for events across Cyprus.",
+    "url": "https://fxsoundproductions.com",
+    "logo": "https://fxsoundproductions.com/images/logo-transparent.png",
+    "image": "https://fxsoundproductions.com/images/logo-transparent.png",
+    "telephone": "+35799999999",
+    "email": "info@fxsoundproductions.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "CY",
+      "addressRegion": "Cyprus"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Cyprus"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "AV Production Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Live Sound" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Stage Lighting" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Staging & Rigging" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AV & Video" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Full Event Production" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Install & Support" } }
+      ]
+    },
+    "sameAs": [
+      "https://www.instagram.com/fx.sound.productions.ltd"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="scrollProgress" role="progressbar" aria-hidden="true"></div>
+
+  <!-- PRELOADER -->
+  <div id="preloader" aria-hidden="true">
+    <div class="spin-preload"></div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mobMenu" role="dialog" aria-label="Mobile navigation">
+    <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')" aria-label="Close menu">✕</button>
+    <a href="#services" onclick="document.getElementById('mobMenu').classList.remove('open')">Services</a>
+    <a href="#gallery" onclick="document.getElementById('mobMenu').classList.remove('open')">Gallery</a>
+    <a href="#about" onclick="document.getElementById('mobMenu').classList.remove('open')">About</a>
+    <a href="#contact" onclick="document.getElementById('mobMenu').classList.remove('open')">Contact</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-logo">
+      <a href="/" aria-label="FX Sound Productions home">
+        <img src="images/logo-transparent.png" alt="FX Sound Productions" width="130" height="32" fetchpriority="high">
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-book" data-magnetic onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Book your event">Book Now</button>
+    <button class="hamburger" aria-label="Open menu" aria-controls="mobMenu" onclick="document.getElementById('mobMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="orb orb1" aria-hidden="true"></div>
+    <div class="orb orb2" aria-hidden="true"></div>
+    <div class="orb orb3" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-content">
+      <h1 class="hero-h r">
+        <span class="line1">We Make</span>
+        <span class="line2">Events Epic.</span>
+        <span class="line3">Sound · Light · Staging · AV — Cyprus</span>
+      </h1>
+      <p class="hero-p r">Professional AV production for weddings, concerts, corporate events and more. Island-wide coverage. Unmatched quality.</p>
+      <div class="hero-btns r">
+        <a class="btn-glow" data-magnetic href="#contact">Book Your Event</a>
+        <a class="btn-ghost btn-ghost--icon" data-magnetic href="news.html" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Upcoming Events
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="s-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <p class="t-label">TRUSTED BY ORGANIZATIONS ACROSS CYPRUS</p>
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee">
+      <span>Scouts CY</span><span class="accent">✦</span>
+      <span>Agia Napa Marina</span><span class="accent">✦</span>
+      <span>LEFKARA RUN</span><span class="accent">✦</span>
+      <span>Mall of Cyprus</span><span class="accent">✦</span>
+      <span>Scouts CY</span><span class="accent">✦</span>
+      <span>Agia Napa Marina</span><span class="accent">✦</span>
+      <span>LEFKARA RUN</span><span class="accent">✦</span>
+      <span>Mall of Cyprus</span><span class="accent">✦</span>
+      <span>Scouts CY</span><span class="accent">✦</span>
+      <span>Agia Napa Marina</span><span class="accent">✦</span>
+      <span>LEFKARA RUN</span><span class="accent">✦</span>
+      <span>Mall of Cyprus</span><span class="accent">✦</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="aboutHeading">
+    <div class="about-inner">
+      <div class="about-grid">
+        <div class="about-left r">
+          <div class="section-tag">About Us</div>
+          <h2 class="section-h" id="aboutHeading">Cyprus's<br><em>go-to AV crew.</em></h2>
+          <p>FX Sound Productions Ltd has been delivering world-class sound, lighting and AV across Cyprus for over a decade. We bring the same energy to a 50-person wedding as we do to a 5,000-person concert.</p>
+          <div class="nums" id="statsArea">
+            <div class="num-item">
+              <div class="n"><span class="count-up" data-target="10000">0</span>+</div>
+              <div class="l">Events</div>
+            </div>
+            <div class="num-item">
+              <div class="n"><span class="count-up" data-target="20">0</span>+</div>
+              <div class="l">Years</div>
+            </div>
+            <div class="num-item">
+              <div class="n"><span class="count-up" data-target="100">0</span>%</div>
+              <div class="l">Satisfied</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" aria-labelledby="servicesHeading">
+    <div class="r">
+      <div class="section-tag">What We Offer</div>
+      <h2 class="section-h" id="servicesHeading">Everything your<br><em>event needs.</em></h2>
+      <p class="section-p">From the first soundcheck to the final spotlight — we handle it all.</p>
+    </div>
+    <div class="srv-grid r">
+
+      <!-- Shared SVG gradient defs — defined once for reuse -->
+      <svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+        <defs>
+          <linearGradient id="srv-icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--c1)" />
+            <stop offset="100%" stop-color="var(--c2)" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="srv-card">
+        <div class="srv-num" aria-hidden="true">01</div>
+        <span class="srv-emoji" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </span>
+        <div class="srv-title">Live Sound</div>
+        <div class="srv-text">Line arrays, subs, digital mixing desks, wireless mics. Crystal-clear audio engineered for your space.</div>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-num" aria-hidden="true">02</div>
+        <span class="srv-emoji" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="3" width="14" height="4" rx="1"></rect>
+            <path d="M8 7v4a4 4 0 0 0 8 0V7M12 11v4M8 15h8l1 6H7l1-6z"></path>
+            <circle cx="12" cy="11" r="2"></circle>
+          </svg>
+        </span>
+        <div class="srv-title">Stage Lighting</div>
+        <div class="srv-text">Moving heads, LED wash, strobes, haze, lasers. We turn any venue into a spectacular stage.</div>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-num" aria-hidden="true">03</div>
+        <span class="srv-emoji" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="4" rx="1"></rect>
+            <path d="M4 7v14M20 7v14M4 11h16M4 15h16M4 19h16"></path>
+          </svg>
+        </span>
+        <div class="srv-title">Staging &amp; Rigging</div>
+        <div class="srv-text">Professional stage builds and trussing. Safe, solid, and built to impress — from podiums to full concert rigs.</div>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-num" aria-hidden="true">04</div>
+        <span class="srv-emoji" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+          </svg>
+        </span>
+        <div class="srv-title">AV &amp; Video</div>
+        <div class="srv-text">LED walls, HD projectors, live streaming, video switching. Get your message across in style.</div>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-num" aria-hidden="true">05</div>
+        <span class="srv-emoji" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </span>
+        <div class="srv-title">Full Event Production</div>
+        <div class="srv-text">We manage the whole show. Weddings, corporate events, festivals, concerts — end to end.</div>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-num" aria-hidden="true">06</div>
+        <span class="srv-emoji" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </span>
+        <div class="srv-title">Install &amp; Support</div>
+        <div class="srv-text">Permanent AV installs for venues, bars, hotels. Plus 24/7 technical support when you need it.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" aria-labelledby="galleryTitle">
+    <div class="gallery-wrap">
+      <div class="g-header r">
+        <div>
+          <div class="section-tag" id="galleryTag">Our Work</div>
+          <h2 class="section-h gallery-section-h" id="galleryTitle">Event Albums</h2>
+        </div>
+        <div class="g-actions" id="galleryActions"></div>
+      </div>
+      <!-- Reserve min-height to prevent CLS while gallery loads -->
+      <div class="g-grid r" id="gGrid" style="min-height:320px">
+        <div class="g-empty">
+          <div class="g-empty-icon" aria-hidden="true">🎬</div>
+          <p>Loading albums...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+    <div class="lb-wrap" id="lbWrap">
+      <button class="lb-x" onclick="closeLightbox()" aria-label="Close lightbox">✕</button>
+    </div>
+    <div class="lb-controls" aria-hidden="true">
+      <button class="lb-prev" onclick="prevLightbox(event)" aria-label="Previous photo">&#10094;</button>
+      <button class="lb-next" onclick="nextLightbox(event)" aria-label="Next photo">&#10095;</button>
+    </div>
+    <div class="lb-counter" id="lbCounter" aria-live="polite"></div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contactHeading">
+    <div class="contact-inner">
+      <div class="contact-intro r">
+        <div class="section-tag section-tag--center">Get In Touch</div>
+        <h2 class="section-h" id="contactHeading">Ready to start?</h2>
+        <p class="section-p section-p--center">Reach out directly for bookings, quotes, and questions. We bring the gear, you bring the party.</p>
+      </div>
+      <div class="contact-hub r">
+        <a href="tel:+35799999999" class="ch-item" aria-label="Call Us" data-magnetic>
+          <div class="ch-ico">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+        </a>
+        <a href="mailto:info@fxsoundproductions.com" class="ch-item" aria-label="Email Us" data-magnetic>
+          <div class="ch-ico">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+              <path d="M22 6l-10 7L2 6"></path>
+            </svg>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/fx.sound.productions.ltd" target="_blank" rel="noopener noreferrer" class="ch-item" aria-label="Instagram" data-magnetic>
+          <div class="ch-ico">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#srv-icon-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r="1"></circle>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="f-logo">
+      <img src="images/logo-transparent.png" alt="FX Sound Productions" width="120" height="30" loading="lazy">
+    </div>
+    <nav class="f-links" aria-label="Footer navigation">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.instagram.com/fx.sound.productions.ltd" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
+    <div class="f-copy">© 2026 FX Sound Productions Ltd · Cyprus · All rights reserved</div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div id="cookieBanner" class="cookie-banner" role="region" aria-label="Cookie consent">
+    <div class="cb-text">We use cookies to improve your experience on our site. By continuing to use our site, you accept our use of cookies.</div>
+    <button class="cb-btn" onclick="acceptCookies()">Accept</button>
+  </div>
+
+  <!-- FLOATING NEWS BUTTON -->
+  <a href="news.html" target="_blank" rel="noopener" id="floatingNews" class="floating-news" aria-label="View Upcoming Events" data-magnetic>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="16" y1="2" x2="16" y2="6"></line>
+      <line x1="8" y1="2" x2="8" y2="6"></line>
+      <line x1="3" y1="10" x2="21" y2="10"></line>
+    </svg>
+  </a>
+
+  <!-- BACK TO TOP -->
+  <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+  <!-- Scripts — all deferred -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="supabase-client.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
+  <script src="scripts.js" defer></script>
+  <script src="gallery-render.js" defer></script>
+</body>
+
+</html>

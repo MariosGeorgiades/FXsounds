@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — FX Sound Productions</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { cursor: default; }
+    #cursor, #cursor-glow { display: none; }
+
+    .admin-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 100px 24px 60px;
+    }
+
+    /* ── Login ── */
+    .login-box {
+      background: rgba(12,12,20,0.9);
+      border: 1px solid rgba(168,85,247,.25);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 60px rgba(168,85,247,.12);
+      text-align: center;
+      margin: auto;
+    }
+    .login-box .section-tag { margin: 0 auto 20px; }
+    .login-box h1 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+    .login-box p { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .admin-input {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color .2s;
+      margin-bottom: 14px;
+    }
+    .admin-input:focus { border-color: var(--c1); }
+    .admin-input.sm { margin-bottom: 0; }
+    textarea.admin-input { resize: vertical; min-height: 90px; }
+    select.admin-input option { background: #111; }
+    .login-err { color: #f97316; font-size: 13px; margin-bottom: 12px; min-height: 18px; }
+
+    /* ── Dashboard shell ── */
+    .admin-dash { width: 100%; max-width: 900px; }
+    .admin-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 32px; flex-wrap: wrap; gap: 16px;
+    }
+    .admin-header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -1px; }
+    .admin-header h1 span {
+      background: linear-gradient(90deg, var(--c1), var(--c2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .admin-logout {
+      padding: 9px 22px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.15); background: none;
+      color: var(--muted); font-size: 12px; letter-spacing: 2px;
+      text-transform: uppercase; cursor: pointer; transition: all .2s;
+    }
+    .admin-logout:hover { border-color: rgba(249,115,22,.5); color: #f97316; }
+
+    /* ── Tabs ── */
+    .admin-tabs {
+      display: flex; gap: 4px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px; padding: 5px;
+      margin-bottom: 28px;
+    }
+    .atab {
+      flex: 1; padding: 11px 20px; border-radius: 10px;
+      border: none; background: none; color: var(--muted);
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 700; cursor: pointer; transition: all .25s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .atab.active {
+      background: linear-gradient(135deg, rgba(168,85,247,.2), rgba(6,182,212,.15));
+      color: var(--white);
+      border: 1px solid rgba(168,85,247,.25);
+      box-shadow: 0 0 20px rgba(168,85,247,.1);
+    }
+    .atab:not(.active):hover { color: rgba(255,255,255,.7); background: rgba(255,255,255,.04); }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex; gap: 24px; padding: 20px 0;
+      border-bottom: 1px solid var(--border); margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num {
+      font-size: 28px; font-weight: 800; font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, var(--c1), var(--c2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-lbl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    /* ── Cards ── */
+    .admin-card {
+      background: rgba(12,12,20,0.7);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px; padding: 32px;
+      backdrop-filter: blur(20px); margin-bottom: 24px;
+    }
+    .admin-card-title {
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--c1); font-weight: 700; margin-bottom: 22px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .admin-card-title svg { opacity: .7; }
+
+    /* ── Form rows ── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-row.thirds { grid-template-columns: 1fr 1fr 1fr; }
+    label { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+    .form-submit { display: flex; gap: 14px; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+    .submit-msg { font-size: 13px; color: #06b6d4; opacity: 0; transition: opacity .4s; letter-spacing: 1px; }
+    .submit-msg.show { opacity: 1; }
+    .submit-msg.err { color: #f97316; }
+
+    /* ── News event pills ── */
+    .events-list { display: flex; flex-direction: column; gap: 10px; }
+    .ev-pill {
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px; padding: 14px 18px; transition: border-color .2s;
+    }
+    .ev-pill:hover { border-color: rgba(168,85,247,.25); }
+    .ev-pill-date { text-align: center; min-width: 48px; }
+    .ev-pill-date .pm { font-size: 9px; letter-spacing: 2px; color: var(--c1); text-transform: uppercase; }
+    .ev-pill-date .pd { font-size: 20px; font-weight: 800; line-height: 1; font-family: 'Outfit', sans-serif; }
+    .ev-pill-date .py { font-size: 10px; color: var(--muted); }
+    .ev-pill-info { flex: 1; min-width: 0; }
+    .ev-pill-info strong { display: block; font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ev-pill-info span { font-size: 12px; color: var(--muted); }
+    .ev-pill-del {
+      background: rgba(249,115,22,.1); border: 1px solid rgba(249,115,22,.25);
+      border-radius: 8px; color: #f97316; font-size: 12px;
+      padding: 6px 12px; cursor: pointer; transition: all .2s; white-space: nowrap;
+      font-family: inherit;
+    }
+    .ev-pill-del:hover { background: rgba(249,115,22,.2); }
+
+    /* ── Gallery album pills ── */
+    .album-pill {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px; padding: 18px; margin-bottom: 14px;
+      transition: border-color .2s;
+    }
+    .album-pill:hover { border-color: rgba(168,85,247,.2); }
+    .album-pill-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+    .album-pill-meta { flex: 1; }
+    .album-pill-meta strong { font-size: 15px; font-weight: 700; display: block; margin-bottom: 2px; }
+    .album-pill-meta span { font-size: 12px; color: var(--muted); }
+    .album-pill-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+    /* Photo upload zone */
+    .photo-upload-zone {
+      border: 2px dashed rgba(168,85,247,.3);
+      border-radius: 12px; padding: 20px; text-align: center;
+      cursor: pointer; transition: all .2s; position: relative;
+    }
+    .photo-upload-zone:hover { border-color: rgba(168,85,247,.6); background: rgba(168,85,247,.04); }
+    .photo-upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .photo-upload-zone p { font-size: 13px; color: var(--muted); margin: 0; pointer-events: none; }
+    .photo-upload-zone .upload-icon { font-size: 28px; margin-bottom: 8px; pointer-events: none; }
+
+    /* Photo thumbnails strip */
+    .photo-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .photo-thumb {
+      position: relative; width: 80px; height: 80px; border-radius: 10px;
+      overflow: hidden; border: 1px solid rgba(255,255,255,.1);
+      flex-shrink: 0;
+    }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-thumb-del {
+      position: absolute; top: 3px; right: 3px;
+      background: rgba(0,0,0,.75); border: none; color: #fff;
+      border-radius: 50%; width: 18px; height: 18px; font-size: 10px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .photo-thumb-del:hover { background: #f97316; }
+
+    /* Storage bar */
+    .storage-bar-wrap { margin-top: 8px; }
+    .storage-bar-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .storage-bar { height: 4px; background: rgba(255,255,255,.08); border-radius: 100px; overflow: hidden; }
+    .storage-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--c1), var(--c2)); transition: width .4s; }
+    .storage-bar-fill.warn { background: linear-gradient(90deg, #f97316, #ef4444); }
+
+    /* Quick links */
+    .quick-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .ql-btn {
+      padding: 11px 24px; border-radius: 100px; font-size: 11px;
+      letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+      text-decoration: none; transition: all .2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .ql-btn.primary { background: linear-gradient(135deg, var(--c1), var(--c2)); color: #fff; box-shadow: 0 0 20px rgba(168,85,247,.25); }
+    .ql-btn.primary:hover { opacity: .85; transform: translateY(-2px); }
+    .ql-btn.ghost { border: 1px solid rgba(255,255,255,.15); color: var(--muted); }
+    .ql-btn.ghost:hover { border-color: rgba(255,255,255,.4); color: var(--white); transform: translateY(-2px); }
+
+    .empty-state {
+      text-align: center; padding: 28px; color: var(--muted);
+      font-size: 14px; border: 1px dashed rgba(255,255,255,.07); border-radius: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row, .form-row.thirds { grid-template-columns: 1fr; }
+      .admin-card { padding: 20px 16px; }
+      .login-box { padding: 32px 20px; }
+      .admin-tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="scrollProgress"></div>
+
+  <nav id="nav">
+    <div class="nav-logo">
+      <a href="index.html"><img src="images/logo-transparent.png" alt="FX Sound Productions"></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" style="color:var(--c1);">← Home</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+    <span id="adminBadge" style="display:none; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--c1); padding:6px 16px; border:1px solid rgba(168,85,247,.3); border-radius:100px;">Admin Mode</span>
+  </nav>
+
+  <div class="admin-wrap">
+
+    <!-- ═══ LOGIN ═══ -->
+    <div class="login-box" id="loginScreen">
+      <div class="section-tag">🔐 Restricted</div>
+      <h1>Admin Panel</h1>
+      <p>Enter the admin password to manage news and gallery.</p>
+      <div class="login-err" id="loginErr"></div>
+      <input class="admin-input" type="password" id="loginPass" placeholder="Password"
+        autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+      <button class="btn-glow" onclick="doLogin()"
+        style="width:100%; margin-top:4px; border:none; cursor:pointer; font-family:inherit;">Login</button>
+    </div>
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <div class="admin-dash" id="dashboard" style="display:none;">
+
+      <div class="admin-header">
+        <div>
+          <div class="section-tag">Admin Panel</div>
+          <h1>FX <span>Site Manager</span></h1>
+        </div>
+        <button class="admin-logout" onclick="doLogout()">Logout</button>
+      </div>
+
+      <!-- Tab switcher -->
+      <div class="admin-tabs">
+        <button class="atab active" id="tabNews" onclick="switchTab('news')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+          News &amp; Events
+        </button>
+        <button class="atab" id="tabGallery" onclick="switchTab('gallery')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Gallery Albums
+        </button>
+      </div>
+
+      <!-- ═══ NEWS TAB ═══ -->
+      <div id="panelNews">
+
+        <div class="stats-bar">
+          <div class="stat-item"><span class="stat-num" id="statNews">0</span><span class="stat-lbl">Admin Events</span></div>
+          <div class="stat-item"><span class="stat-num">4</span><span class="stat-lbl">Static Events</span></div>
+          <div class="stat-item"><span class="stat-num" id="statNewsTotal">4</span><span class="stat-lbl">Total Visible</span></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Upcoming Event
+          </div>
+          <div class="form-row full">
+            <div><label for="evTitle">Event Title *</label>
+            <input class="admin-input sm" id="evTitle" type="text" placeholder="e.g. Summer Festival 2026"></div>
+          </div>
+          <div class="form-row thirds">
+            <div><label for="evMonth">Month *</label>
+            <select class="admin-input sm" id="evMonth">
+              <option value="">Month</option>
+              <option>JAN</option><option>FEB</option><option>MAR</option><option>APR</option>
+              <option>MAY</option><option>JUN</option><option>JUL</option><option>AUG</option>
+              <option>SEP</option><option>OCT</option><option>NOV</option><option>DEC</option>
+            </select></div>
+            <div><label for="evDay">Day *</label>
+            <input class="admin-input sm" id="evDay" type="number" min="1" max="31" placeholder="15"></div>
+            <div><label for="evYear">Year *</label>
+            <input class="admin-input sm" id="evYear" type="number" min="2024" max="2099" placeholder="2026"></div>
+          </div>
+          <div class="form-row full">
+            <div><label for="evDesc">Description *</label>
+            <textarea class="admin-input sm" id="evDesc" placeholder="Tell visitors what this event is about…"></textarea></div>
+          </div>
+          <div class="form-submit">
+            <button class="btn-glow" onclick="addEvent()" style="border:none;cursor:pointer;font-family:inherit;padding:14px 36px;">Publish Event</button>
+            <span class="submit-msg" id="newsMsg"></span>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Admin-Uploaded Events
+          </div>
+          <div class="events-list" id="eventsList"></div>
+        </div>
+      </div>
+
+      <!-- ═══ GALLERY TAB ═══ -->
+      <div id="panelGallery" style="display:none;">
+
+        <div class="stats-bar">
+          <div class="stat-item"><span class="stat-num" id="statAlbums">0</span><span class="stat-lbl">Admin Albums</span></div>
+          <div class="stat-item"><span class="stat-num" id="statPhotos">0</span><span class="stat-lbl">Total Photos</span></div>
+          <div class="stat-item"><span class="stat-num">3</span><span class="stat-lbl">Static Albums</span></div>
+        </div>
+
+        <!-- Storage usage -->
+        <div class="admin-card" id="storageCard">
+          <div class="admin-card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            Storage Usage
+          </div>
+          <div class="storage-bar-wrap">
+            <div class="storage-bar-label">
+              <span id="storageLbl">Calculating…</span>
+              <span id="storagePct">0%</span>
+            </div>
+            <div class="storage-bar"><div class="storage-bar-fill" id="storageFill" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <!-- Create album form -->
+        <div class="admin-card">
+          <div class="admin-card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Create New Album
+          </div>
+          <div class="form-row">
+            <div><label for="albName">Album Name *</label>
+            <input class="admin-input sm" id="albName" type="text" placeholder="e.g. Summer Gala 2026"></div>
+            <div><label for="albDate">Date *</label>
+            <input class="admin-input sm" id="albDate" type="text" placeholder="e.g. Jun 2026"></div>
+          </div>
+          <div class="form-submit">
+            <button class="btn-glow" onclick="createAlbum()" style="border:none;cursor:pointer;font-family:inherit;padding:14px 36px;">Create Album</button>
+            <span class="submit-msg" id="albMsg"></span>
+          </div>
+        </div>
+
+        <!-- Album list -->
+        <div id="albumList"></div>
+
+      </div>
+
+      <!-- Quick links (always visible) -->
+      <div class="admin-card">
+        <div class="admin-card-title">Quick Links</div>
+        <div class="quick-links">
+          <a href="news.html" target="_blank" class="ql-btn primary">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View News Page
+          </a>
+          <a href="index.html#gallery" target="_blank" class="ql-btn ghost">View Gallery</a>
+          <a href="index.html" target="_blank" class="ql-btn ghost">View Website</a>
+        </div>
+      </div>
+
+    </div><!-- /dashboard -->
+  </div><!-- /admin-wrap -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    /* ════════════════════════
+       ADMIN CORE
+    ════════════════════════ */
+    const ADMIN_PASS = 'fxadmin2026';
+    const SESSION_KEY = 'fxAdminSession';
+
+    function doLogin() {
+      const pass = document.getElementById('loginPass').value;
+      if (pass === ADMIN_PASS) {
+        localStorage.setItem(SESSION_KEY, '1');
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('adminBadge').style.display = 'block';
+        loadDashboard();
+      } else {
+        const err = document.getElementById('loginErr');
+        err.textContent = '❌ Incorrect password.';
+        document.getElementById('loginPass').value = '';
+        setTimeout(() => err.textContent = '', 2500);
+      }
+    }
+
+    function doLogout() {
+      localStorage.removeItem(SESSION_KEY);
+      location.reload();
+    }
+
+    function switchTab(tab) {
+      document.getElementById('panelNews').style.display    = tab === 'news'    ? 'block' : 'none';
+      document.getElementById('panelGallery').style.display = tab === 'gallery' ? 'block' : 'none';
+      document.getElementById('tabNews').classList.toggle('active', tab === 'news');
+      document.getElementById('tabGallery').classList.toggle('active', tab === 'gallery');
+      if (tab === 'gallery') { loadAlbumList(); updateStorage(); }
+    }
+
+    function loadDashboard() {
+      loadNewsList();
+      updateStorage();
+    }
+
+    /* ════════════════════════
+       NEWS MANAGER
+    ════════════════════════ */
+    async function getEvents() {
+      if (!window.supabaseClient) return [];
+      const { data } = await window.supabaseClient.from('news_events').select('*').order('created_at', { ascending: true });
+      return data || [];
+    }
+
+    async function loadNewsList() {
+      const evs = await getEvents();
+      document.getElementById('statNews').textContent     = evs.length;
+      document.getElementById('statNewsTotal').textContent = evs.length + 4;
+      const list = document.getElementById('eventsList');
+      if (!evs.length) { list.innerHTML = '<div class="empty-state">📭 No admin events yet. Add one above!</div>'; return; }
+      list.innerHTML = evs.slice().reverse().map(ev => `
+        <div class="ev-pill">
+          <div class="ev-pill-date">
+            <div class="pm">${ev.month}</div>
+            <div class="pd">${ev.day}</div>
+            <div class="py">${ev.year}</div>
+          </div>
+          <div class="ev-pill-info">
+            <strong>${ev.title}</strong>
+            <span>${ev.desc.substring(0,90)}${ev.desc.length>90?'…':''}</span>
+          </div>
+          <button class="ev-pill-del" onclick="deleteEvent('${ev.id}')">Delete</button>
+        </div>`).join('');
+    }
+
+    async function deleteEvent(id) {
+      if (!window.supabaseClient) return;
+      await window.supabaseClient.from('news_events').delete().match({ id });
+      loadNewsList();
+    }
+
+    async function addEvent() {
+      const title = document.getElementById('evTitle').value.trim();
+      const month = document.getElementById('evMonth').value;
+      const day   = String(document.getElementById('evDay').value).padStart(2,'0');
+      const year  = document.getElementById('evYear').value;
+      const desc  = document.getElementById('evDesc').value.trim();
+      const msg   = document.getElementById('newsMsg');
+
+      if (!title || !month || !day || !year || !desc) {
+        msg.textContent='⚠ Please fill all required fields.'; msg.className='submit-msg err show';
+        setTimeout(()=>msg.classList.remove('show'),3000); return;
+      }
+      if (!window.supabaseClient) { alert('Supabase not configured'); return; }
+      const { error } = await window.supabaseClient.from('news_events').insert([{ month, day, year: String(year), title, description: desc }]);
+      if (error) { alert('Failed to save'); return; }
+      ['evTitle','evMonth','evDay','evYear','evDesc'].forEach(id => document.getElementById(id).value='');
+      msg.textContent='✓ Event published!'; msg.className='submit-msg show';
+      setTimeout(()=>msg.classList.remove('show'),3000);
+      loadNewsList();
+    }
+
+    /* ════════════════════════
+       GALLERY MANAGER
+    ════════════════════════ */
+    async function getAlbums() {
+      if (!window.supabaseClient) return [];
+      const { data } = await window.supabaseClient.from('gallery_albums').select('*').order('created_at', { ascending: true });
+      return data || [];
+    }
+
+    // ── Image compression ──
+    function compressImage(file, maxW, quality) {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            let w = img.width, h = img.height;
+            if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ── Storage meter ──
+    async function updateStorage() {
+      const used = new Blob([JSON.stringify(await getAlbums() || [])]).size;
+      const max  = 5 * 1024 * 1024; // 5MB approx
+      const pct  = Math.min(Math.round(used / max * 100), 100);
+      const usedMB = (used / (1024*1024)).toFixed(2);
+      document.getElementById('storageLbl').textContent  = `${usedMB} MB used of ~5 MB`;
+      document.getElementById('storagePct').textContent  = pct + '%';
+      const fill = document.getElementById('storageFill');
+      fill.style.width = pct + '%';
+      fill.classList.toggle('warn', pct >= 80);
+    }
+
+    // ── Create album ──
+    async function createAlbum() {
+      const name = document.getElementById('albName').value.trim();
+      const date = document.getElementById('albDate').value.trim();
+      const msg  = document.getElementById('albMsg');
+      if (!name || !date) {
+        msg.textContent='⚠ Name and date required.'; msg.className='submit-msg err show';
+        setTimeout(()=>msg.classList.remove('show'),3000); return;
+      }
+      if (!window.supabaseClient) { alert('Supabase not configured'); return; }
+      const { error } = await window.supabaseClient.from('gallery_albums').insert([{ title: name, album_date: date, photos: [] }]);
+      if (error) { alert('Failed to create album'); return; }
+      document.getElementById('albName').value='';
+      document.getElementById('albDate').value='';
+      msg.textContent='✓ Album created! Add photos below.'; msg.className='submit-msg show';
+      setTimeout(()=>msg.classList.remove('show'),3000);
+      loadAlbumList();
+      updateStorage();
+    }
+
+    // ── Delete album ──
+    async function deleteAlbum(id) {
+      if (!window.supabaseClient) return;
+      await window.supabaseClient.from('gallery_albums').delete().match({ id });
+      loadAlbumList();
+      updateStorage();
+    }
+
+    // ── Delete single photo from album ──
+    async function deletePhoto(albId, photoId) {
+      const albs = await getAlbums();
+      const alb = albs.find(a => a.id === albId);
+      if (!alb || !window.supabaseClient) return;
+      const newPhotos = alb.photos.filter(p => p.id !== photoId);
+      await window.supabaseClient.from('gallery_albums').update({ photos: newPhotos }).match({ id: albId });
+      loadAlbumList();
+      updateStorage();
+    }
+
+    // ── Handle file upload for an album ──
+    async function handlePhotoUpload(albId, input) {
+      const files = Array.from(input.files);
+      if (!files.length) return;
+      const uploadBtn = input.closest('.album-pill').querySelector('.upload-progress');
+      if (uploadBtn) uploadBtn.textContent = `Compressing ${files.length} photo(s)…`;
+
+      const albs = await getAlbums();
+      const alb = albs.find(a => a.id === albId);
+      if (!alb || !window.supabaseClient) return;
+
+      for (const file of files) {
+        const compressed = await compressImage(file, 1200, 0.75);
+        alb.photos.push({ id:'ph-'+Date.now()+'-'+Math.random().toString(36).slice(2), src: compressed, name: file.name });
+      }
+      await window.supabaseClient.from('gallery_albums').update({ photos: alb.photos }).match({ id: albId });
+      input.value = '';
+      loadAlbumList();
+      updateStorage();
+    }
+
+    // ── Render album list ──
+    async function loadAlbumList() {
+      const albs = await getAlbums();
+      let totalPhotos = 0;
+      albs.forEach(a => totalPhotos += a.photos.length);
+      document.getElementById('statAlbums').textContent = albs.length;
+      document.getElementById('statPhotos').textContent = totalPhotos;
+
+      const container = document.getElementById('albumList');
+      if (!albs.length) {
+        container.innerHTML = '<div class="admin-card"><div class="empty-state">📂 No admin albums yet. Create one above!</div></div>';
+        return;
+      }
+
+      container.innerHTML = albs.slice().reverse().map(alb => `
+        <div class="album-pill admin-card">
+          <div class="album-pill-header">
+            <div class="album-pill-meta">
+              <strong>${alb.title}</strong>
+              <span>${alb.date} · ${alb.photos.length} photo${alb.photos.length!==1?'s':''}</span>
+            </div>
+            <div class="album-pill-actions">
+              <span class="upload-progress" style="font-size:11px;color:var(--muted);"></span>
+              <button class="ev-pill-del" onclick="deleteAlbum('${alb.id}')">Delete Album</button>
+            </div>
+          </div>
+
+          <!-- Photo upload zone -->
+          <div class="photo-upload-zone">
+            <input type="file" accept="image/*" multiple onchange="handlePhotoUpload('${alb.id}', this)">
+            <div class="upload-icon">📸</div>
+            <p>Click or drag photos here to upload<br><span style="font-size:11px;opacity:.6">Images are compressed automatically</span></p>
+          </div>
+
+          <!-- Thumbnail strip -->
+          ${alb.photos.length ? `
+            <div class="photo-strip">
+              ${alb.photos.map(ph => `
+                <div class="photo-thumb">
+                  <img src="${ph.src}" alt="${ph.name}">
+                  <button class="photo-thumb-del" onclick="deletePhoto('${alb.id}','${ph.id}')" title="Remove">✕</button>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+
+    /* ════════════════════════
+       BOOT
+    ════════════════════════ */
+    if (localStorage.getItem(SESSION_KEY)) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display   = 'block';
+      document.getElementById('adminBadge').style.display  = 'block';
+      loadDashboard();
+    }
+
+    // Nav + scroll progress
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('nav');
+      if (nav) nav.style.background = window.scrollY > 60 ? 'rgba(5,5,8,.98)' : 'rgba(5,5,8,.8)';
+      const sp = document.getElementById('scrollProgress');
+      if (sp) {
+        const pct = document.documentElement.scrollTop /
+          (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 100;
+        sp.style.width = pct + '%';
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>

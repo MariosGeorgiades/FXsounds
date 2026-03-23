@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>News & Events — FX Sound Productions</title>
+  <meta name="description" content="Upcoming events, concerts, and news from FX Sound Productions Ltd.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="images/logo-transparent.png" as="image">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor"></div>
+  <div id="cursor-glow"></div>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="scrollProgress"></div>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')">✕</button>
+    <a href="index.html" style="color:var(--c1);">← Return Home</a>
+    <a href="index.html#services" onclick="document.getElementById('mobMenu').classList.remove('open')">Services</a>
+    <a href="index.html#gallery" onclick="document.getElementById('mobMenu').classList.remove('open')">Gallery</a>
+    <a href="index.html#about" onclick="document.getElementById('mobMenu').classList.remove('open')">About</a>
+    <a href="index.html#contact" onclick="document.getElementById('mobMenu').classList.remove('open')">Contact</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">
+      <a href="index.html"><img src="images/logo-transparent.png" alt="FX Sound Productions"></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" style="color:var(--c1);">← Return Home</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a class="nav-book btn-glow" href="index.html#contact" data-magnetic style="text-decoration:none; padding:12px 24px;">Book Now</a>
+    <button class="hamburger" data-magnetic onclick="document.getElementById('mobMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- NEWS HERO -->
+  <header class="hero" style="min-height: 45vh; height: auto; padding: 180px 0 60px; display:flex; align-items:center;">
+    <div class="hero-bg"></div>
+    <div class="orb orb1" style="top: 10%; left: 0%; width: 40vw; height: 40vw; opacity: 0.4;"></div>
+    <div class="orb orb2" style="top: 20%; right: 10%; width: 30vw; height: 30vw; opacity: 0.3;"></div>
+    
+    <div class="r" style="position:relative; z-index:2; text-align:center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+      <div class="section-tag" style="margin: 0 auto 24px;">Event Roster</div>
+      <h1 class="hero-h" style="margin-bottom: 24px;">
+        <span class="line1" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">Upcoming Events.</span>
+      </h1>
+      <p class="section-p" style="max-width: 650px; margin: 0 auto; color: rgba(255,255,255,0.7); font-size: 1.1rem;">See where our sound, stage, and lighting rigs are heading next. Reserve your spot at the island's most spectacular upcoming shows.</p>
+    </div>
+  </header>
+
+  <!-- NEWS GRID -->
+  <main class="news-list-page" style="padding-bottom: 140px; position: relative; z-index: 10;">
+    <div class="r">
+      <div class="news-grid" id="newsGrid">
+        <!-- Cards rendered by news-render.js -->
+        <div class="nc-loading">Loading events…</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-logo"><a href="index.html"><img src="images/logo-transparent.png" alt="FX Sound Productions" loading="lazy"></a></div>
+    <div class="f-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#gallery">Gallery</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="f-copy">© 2026 FX Sound Productions Ltd · Cyprus · All rights reserved</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="supabase-client.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
+  <script src="scripts.js" defer></script>
+  <script src="news-render.js" defer></script>
+</body>
+</html>

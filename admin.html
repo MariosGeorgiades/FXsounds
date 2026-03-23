@@ -305,18 +305,9 @@
             <div><label for="evTitle">Event Title *</label>
             <input class="admin-input sm" id="evTitle" type="text" placeholder="e.g. Summer Festival 2026"></div>
           </div>
-          <div class="form-row thirds">
-            <div><label for="evMonth">Month *</label>
-            <select class="admin-input sm" id="evMonth">
-              <option value="">Month</option>
-              <option>JAN</option><option>FEB</option><option>MAR</option><option>APR</option>
-              <option>MAY</option><option>JUN</option><option>JUL</option><option>AUG</option>
-              <option>SEP</option><option>OCT</option><option>NOV</option><option>DEC</option>
-            </select></div>
-            <div><label for="evDay">Day *</label>
-            <input class="admin-input sm" id="evDay" type="number" min="1" max="31" placeholder="15"></div>
-            <div><label for="evYear">Year *</label>
-            <input class="admin-input sm" id="evYear" type="number" min="2024" max="2099" placeholder="2026"></div>
+          <div class="form-row full">
+            <div><label for="evDate">Event Date *</label>
+            <input class="admin-input sm" id="evDate" type="date"></div>
           </div>
           <div class="form-row full">
             <div><label for="evDesc">Description *</label>
@@ -461,6 +452,7 @@
     }
 
     async function deleteEvent(id) {
+      if (!confirm("Are you sure you want to permanently delete this event?")) return;
       if (!window.supabaseClient) return;
       await window.supabaseClient.from('news_events').delete().match({ id });
       loadNewsList();
@@ -468,20 +460,29 @@
 
     async function addEvent() {
       const title = document.getElementById('evTitle').value.trim();
-      const month = document.getElementById('evMonth').value;
-      const day   = String(document.getElementById('evDay').value).padStart(2,'0');
-      const year  = document.getElementById('evYear').value;
+      const dateVal = document.getElementById('evDate').value;
       const desc  = document.getElementById('evDesc').value.trim();
       const msg   = document.getElementById('newsMsg');
 
-      if (!title || !month || !day || !year || !desc) {
+      if (!title || !dateVal || !desc) {
         msg.textContent='⚠ Please fill all required fields.'; msg.className='submit-msg err show';
         setTimeout(()=>msg.classList.remove('show'),3000); return;
       }
+      
+      const d = new Date(dateVal);
+      const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      const month = months[d.getUTCMonth()];
+      const day = String(d.getUTCDate()).padStart(2,'0');
+      const year = String(d.getUTCFullYear());
+
       if (!window.supabaseClient) { alert('Supabase not configured'); return; }
-      const { error } = await window.supabaseClient.from('news_events').insert([{ month, day, year: String(year), title, description: desc }]);
+      const { error } = await window.supabaseClient.from('news_events').insert([{ month, day, year, title, description: desc }]);
       if (error) { alert('Failed to save'); return; }
-      ['evTitle','evMonth','evDay','evYear','evDesc'].forEach(id => document.getElementById(id).value='');
+      
+      document.getElementById('evTitle').value = '';
+      document.getElementById('evDate').value = '';
+      document.getElementById('evDesc').value = '';
+      
       msg.textContent='✓ Event published!'; msg.className='submit-msg show';
       setTimeout(()=>msg.classList.remove('show'),3000);
       loadNewsList();
@@ -542,6 +543,7 @@
 
     // ── Delete album ──
     async function deleteAlbum(id) {
+      if (!confirm("Are you sure you want to permanently delete this album and ALL its photos from the cloud?")) return;
       if (!window.supabaseClient) return;
       
       // Delete all photos belonging to this album first
@@ -559,6 +561,7 @@
 
     // ── Delete single photo from album ──
     async function deletePhoto(albId, photoId) {
+      if (!confirm("Delete this photo?")) return;
       const albs = await getAlbums();
       const alb = albs.find(a => a.id === albId);
       if (!alb || !window.supabaseClient) return;

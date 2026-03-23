@@ -37,21 +37,18 @@
   </div>
 
   <!-- NAV -->
-  <nav id="nav">
+  <nav id="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-logo">
-      <a href="index.html"><img src="images/logo-transparent.png" alt="FX Sound Productions"></a>
+      <a href="index.html" aria-label="FX Sound Productions home">
+        <img src="images/logo-transparent.png" alt="FX Sound Productions" width="130" height="32" fetchpriority="high">
+      </a>
     </div>
-    <ul class="nav-links">
-      <li><a href="index.html" style="color:var(--c1);">← Return Home</a></li>
-      <li><a href="index.html#services">Services</a></li>
-      <li><a href="index.html#gallery">Gallery</a></li>
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <a class="nav-book btn-glow" href="index.html#contact" data-magnetic style="text-decoration:none; padding:12px 24px;">Book Now</a>
-    <button class="hamburger" data-magnetic onclick="document.getElementById('mobMenu').classList.add('open')">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-actions">
+      <a class="nav-book" href="index.html#contact" data-magnetic aria-label="Book your event">Book Now</a>
+      <button class="hamburger" aria-label="Open menu" aria-controls="mobMenu" onclick="document.getElementById('mobMenu').classList.add('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
   <!-- NEWS HERO -->

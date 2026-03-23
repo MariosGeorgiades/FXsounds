@@ -7,11 +7,14 @@
 let lenis;
 if (typeof window.Lenis !== 'undefined') {
   lenis = new window.Lenis({
-    duration: 1.2,
+    duration: 1.0,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
     direction: 'vertical',
     gestureDirection: 'vertical',
     smooth: true,
+    mouseMultiplier: 1,
+    touchMultiplier: 2, // Make touch feel slightly more responsive
+    infinite: false,
   });
 
   function raf(time) {

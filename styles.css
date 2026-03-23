@@ -110,7 +110,7 @@ img {
 /* ══════════════════════════════════
    NAV
 ══════════════════════════════════ */
-nav {
+#nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -130,6 +130,12 @@ nav {
 .nav-logo img {
   height: 32px;
   filter: brightness(.9);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .nav-links {
@@ -168,14 +174,28 @@ nav {
   opacity: .85;
 }
 
+.nav-book:active,
+.btn-glow:active,
+.btn-ghost:active,
+.g-tab:active,
+.ql-btn:active {
+  transform: scale(0.96);
+}
+
 .hamburger {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 12px;
+  margin: -12px;
+  transition: transform 0.2s;
+}
+
+.hamburger:active {
+  transform: scale(0.9);
 }
 
 .hamburger span {
@@ -214,11 +234,29 @@ nav {
 }
 
 .mob-menu a {
-  font-size: 36px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.mob-menu.open a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mob-menu.open a:nth-child(1) { transition-delay: 0.1s; }
+.mob-menu.open a:nth-child(2) { transition-delay: 0.15s; }
+.mob-menu.open a:nth-child(3) { transition-delay: 0.2s; }
+.mob-menu.open a:nth-child(4) { transition-delay: 0.25s; }
+.mob-menu.open a:nth-child(5) { transition-delay: 0.3s; }
+.mob-menu.open a:nth-child(6) { transition-delay: 0.35s; }
+
+.mob-menu a {
+  font-size: 32px;
   font-weight: 800;
   letter-spacing: -1px;
   color: var(--white);
-  transition: color .2s;
+  transition: color .2s, opacity 0.4s, transform 0.4s;
 }
 
 .mob-menu a:hover {
@@ -605,6 +643,10 @@ nav {
   cursor: default;
   contain: layout style;
   will-change: transform;
+}
+
+.srv-card:active {
+  transform: scale(0.98);
 }
 
 .srv-card:hover {
@@ -1381,13 +1423,21 @@ footer {
    RESPONSIVE
 ══════════════════════════════════ */
 @media (max-width: 960px) {
-  nav {
+  #nav {
     padding: 0 20px;
   }
 
-  .nav-links,
   .nav-book {
+    padding: 6px 16px;
+    font-size: 10px;
+  }
+
+  .nav-links {
     display: none;
+  }
+  
+  .nav-actions {
+    gap: 12px;
   }
   
   /* Hamburger is natively flex now */

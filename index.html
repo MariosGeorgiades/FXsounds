@@ -110,20 +110,17 @@
   <!-- NAV -->
   <nav id="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-logo">
-      <a href="/" aria-label="FX Sound Productions home">
+      <a href="index.html" aria-label="FX Sound Productions home">
         <img src="images/logo-transparent.png" alt="FX Sound Productions" width="130" height="32" fetchpriority="high">
       </a>
     </div>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="nav-book" data-magnetic onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Book your event">Book Now</button>
-    <button class="hamburger" aria-label="Open menu" aria-controls="mobMenu" onclick="document.getElementById('mobMenu').classList.add('open')">
-      <span></span><span></span><span></span>
-    </button>
+    <!-- Combined Desktop/Mobile Navigation: Now unified under hamburger per user request -->
+    <div class="nav-actions">
+      <button class="nav-book" data-magnetic onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Book your event">Book Now</button>
+      <button class="hamburger" aria-label="Open menu" aria-controls="mobMenu" onclick="document.getElementById('mobMenu').classList.add('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
   <!-- HERO -->

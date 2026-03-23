@@ -117,8 +117,12 @@
     <!-- Combined Desktop/Mobile Navigation: Now unified under hamburger per user request -->
     <div class="nav-actions">
       <button class="nav-book" data-magnetic onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Book your event">Book Now</button>
-      <button class="hamburger" aria-label="Open menu" aria-controls="mobMenu" onclick="document.getElementById('mobMenu').classList.add('open')">
-        <span></span><span></span><span></span>
+      <button class="dots-btn" aria-label="Open menu" aria-controls="mobMenu" onclick="document.getElementById('mobMenu').classList.add('open')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="5" r="2"/>
+          <circle cx="12" cy="12" r="2"/>
+          <circle cx="12" cy="19" r="2"/>
+        </svg>
       </button>
     </div>
   </nav>

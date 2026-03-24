@@ -129,6 +129,8 @@ img {
 
 .nav-logo img {
   height: 32px;
+  width: auto;
+  object-fit: contain;
   filter: brightness(.9);
 }
 
@@ -340,56 +342,81 @@ img {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  animation: orb-float var(--d, 8s) cubic-bezier(.4, 0, .2, 1) infinite alternate;
+  filter: blur(100px);
+  opacity: 0.25;
   z-index: 1;
+  animation: orbFloat 25s infinite alternate ease-in-out;
   will-change: transform;
 }
 
 .orb1 {
-  width: 400px;
-  height: 400px;
-  background: rgba(168, 85, 247, .08);
-  top: -10%;
-  left: -10%;
-  --d: 9s;
+  width: 45vw; height: 45vw;
+  background: var(--c1);
+  top: -10%; left: -10%;
+  animation-delay: 0s;
 }
 
 .orb2 {
-  width: 350px;
-  height: 350px;
-  background: rgba(6, 182, 212, .07);
-  bottom: -10%;
-  right: -5%;
-  --d: 11s;
-  animation-delay: -3s;
+  width: 40vw; height: 40vw;
+  background: var(--c2);
+  bottom: -10%; right: -10%;
+  animation-delay: -5s;
 }
 
 .orb3 {
-  width: 300px;
-  height: 300px;
-  background: rgba(249, 115, 22, .05);
-  top: 40%;
-  left: 60%;
-  --d: 7s;
-  animation-delay: -6s;
+  width: 35vw; height: 35vw;
+  background: var(--c3);
+  top: 20%; right: 10%;
+  opacity: 0.15;
+  animation-delay: -10s;
 }
 
-@keyframes orb-float {
-  0% {
-    transform: translate(0, 0) scale(1) rotate(0deg);
-  }
-
-  100% {
-    transform: translate(50px, -50px) scale(1.2) rotate(10deg);
-  }
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10%, 15%) scale(1.1); }
+  66% { transform: translate(-5%, 10%) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
-.hero-content {
-  position: relative;
-  z-index: 10;
-  max-width: 820px;
+/* ── LIGHTING EFFECTS ── */
+.light-beams {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
 }
+
+.light-beam {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  width: 2px;
+  height: 200%;
+  background: linear-gradient(to bottom, transparent, var(--c1), var(--c2), transparent);
+  opacity: 0.15;
+  transform-origin: center;
+  filter: blur(10px);
+  animation: beamSweep 15s infinite ease-in-out;
+}
+
+.light-beam:nth-child(2) {
+  animation-delay: -5s;
+  background: linear-gradient(to bottom, transparent, var(--c2), var(--c1), transparent);
+  opacity: 0.1;
+}
+
+.light-beam:nth-child(3) {
+  animation-delay: -10s;
+  opacity: 0.08;
+}
+
+@keyframes beamSweep {
+  0% { transform: translateX(-50%) rotate(-35deg); opacity: 0.1; }
+  50% { transform: translateX(-50%) rotate(35deg); opacity: 0.3; }
+  100% { transform: translateX(-50%) rotate(-35deg); opacity: 0.1; }
+}
+
 
 .hero-logo {
   width: 200px;
@@ -403,6 +430,20 @@ img {
   line-height: .95;
   letter-spacing: -3px;
   margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+  animation: heroPulse 4s infinite ease-in-out;
+}
+
+@keyframes heroPulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(168, 85, 247, 0); }
+  50% { text-shadow: 0 0 40px rgba(168, 85, 247, 0.4); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 820px;
 }
 
 .hero-h .line1 {
